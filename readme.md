@@ -1,6 +1,6 @@
 # RSS Generator
 
-PHP class for generating of RSS feeds. Full support of [RSSboard specification](http://www.rssboard.org/rss-specification)
+PHP library for generating of RSS feeds. Full support of [RSSboard specification](http://www.rssboard.org/rss-specification)
 
 ## Usage
 
@@ -8,8 +8,8 @@ See example.php
 
 ## Development
 
-- Source hosted at [GitHub](https://github.com/zelenin/RSSGen)
-- Report issues, questions, feature requests on [GitHub Issues](https://github.com/zelenin/RSSGen/issues)
+- Source hosted at [GitHub](https://github.com/zelenin/RSS-Generator)
+- Report issues, questions, feature requests on [GitHub Issues](https://github.com/zelenin/RSS-Generator/issues)
 
 ## Author
 

@@ -2,7 +2,7 @@
 
 require_once realpath(__DIR__ . '/Feed.php');
 
-$feed = new \Zelenin\Feed();
+$feed = new \Zelenin\Feed;
 
 // $feed->addChannel();
 $feed->addChannel('http://example.com/rss.xml');
@@ -19,8 +19,8 @@ $feed
     ->addChannelCopyright('Channel copyright, ' . date('Y'))
     ->addChannelManagingEditor('editor@example.com (John Doe)')
     ->addChannelWebMaster('webmaster@example.com (John Doe)')
-    ->addChannelPubDate(1300000000)
-    ->addChannelLastBuildDate(1300000000)
+    ->addChannelPubDate(1300000000) // timestamp/strtotime/DateTime
+    ->addChannelLastBuildDate(1300000000) // timestamp/strtotime/DateTime
     ->addChannelCategory('Channel category', 'http://example.com/category')
     ->addChannelCloud('rpc.sys.com', 80, '/RPC2', 'myCloud.rssPleaseNotify', 'xml-rpc')
     ->addChannelTtl(60) // minutes
@@ -50,8 +50,8 @@ $feed
     ->addItemCategory('Item category', 'http://example.com/category')
     ->addItemComments('http://example.com/post1/#comments')
     ->addItemEnclosure('http://example.com/mp3.mp3', 99999, 'audio/mpeg')
-    ->addItemGuid('http://example.com/post1', 'true')
-    ->addItemPubDate(1300000000)
+    ->addItemGuid('http://example.com/post1', true)
+    ->addItemPubDate(1300000000) // timestamp/strtotime/DateTime
     ->addItemSource('RSS title', 'http://example.com/rss.xml');
 
 $feed->addItemElement('test', 'desc', array('attr1' => 'val1', 'attr2' => 'val2'));

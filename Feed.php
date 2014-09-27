@@ -36,8 +36,8 @@ class Feed extends DOMDocument
 
         $this->addChannelElement('atom:link', '', array(
             'href' => $href
-                    ? $href
-                    : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
+                ? $href
+                : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
             'rel' => 'self',
             'type' => 'application/rss+xml'
         ));
@@ -276,10 +276,7 @@ class Feed extends DOMDocument
     public function __toString()
     {
         header('Content-Type: application/rss+xml; charset=utf-8');
-        // $string = mb_convert_encoding( $this->saveXML(), 'html-entities', 'utf-8' );
-        $search = array('&nbsp;');
-        $replace = array(' ');
-        return str_replace($search, $replace, $this->saveXML());
+        return $this->saveXML();
     }
 
     private function normalizeDateTime($value)
@@ -304,6 +301,8 @@ class Feed extends DOMDocument
 
     private function normalizeString($string)
     {
-        return htmlspecialchars($string, ENT_QUOTES, 'utf-8', false);
+        $search = array('&nbsp;');
+        $replace = array(' ');
+        return str_replace($search, $replace, htmlspecialchars($string, ENT_QUOTES, 'utf-8', false));
     }
 }

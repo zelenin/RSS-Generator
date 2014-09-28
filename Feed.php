@@ -9,7 +9,7 @@ use Exception;
 
 class Feed extends DOMDocument
 {
-    const VERSION = '2.0.0';
+    const VERSION = '2.0.2';
     /** @var DomElement $rss */
     private $rss;
     /** @var DomElement $channel */
@@ -260,7 +260,7 @@ class Feed extends DOMDocument
 
     public function addItemGuid($value, $isPermaLink = true)
     {
-        return $this->addItemElement('guid', $value, array('isPermaLink' => $isPermaLink));
+        return $this->addItemElement('guid', $value, array('isPermaLink' => $isPermaLink === false ? 'false' : 'true'));
     }
 
     public function addItemPubDate($value)

@@ -301,8 +301,8 @@ class Feed extends DOMDocument
 
     private function normalizeString($string)
     {
-        $search = array('&nbsp;');
-        $replace = array(' ');
-        return str_replace($search, $replace, htmlspecialchars($string, ENT_QUOTES, 'utf-8', false));
+        $string = html_entity_decode($string, ENT_HTML5, $this->encoding);
+        $string = htmlspecialchars($string, ENT_QUOTES, $this->encoding, false);
+        return $string;
     }
 }

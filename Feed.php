@@ -9,7 +9,7 @@ use Exception;
 
 class Feed extends DOMDocument
 {
-    const VERSION = '2.0.2';
+    const VERSION = '2.1.1';
     /** @var DomElement $rss */
     private $rss;
     /** @var DomElement $channel */
@@ -34,13 +34,13 @@ class Feed extends DOMDocument
         $channelElement = $this->createElement('channel');
         $this->channel = $this->rss->appendChild($channelElement);
 
-        $this->addChannelElement('atom:link', '', array(
+        $this->addChannelElement('atom:link', '', [
             'href' => $href
                 ? $href
                 : $_SERVER['REQUEST_SCHEME'] . '://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'],
             'rel' => 'self',
             'type' => 'application/rss+xml'
-        ));
+        ]);
         $this->addChannelGenerator();
         $this->addChannelDocs();
         return $this;
@@ -60,8 +60,8 @@ class Feed extends DOMDocument
     {
         $element = $this->createElement($element);
         foreach ($sub as $key => $value) {
-            $sub_element = $this->createElement($key, $this->normalizeString($value));
-            $element->appendChild($sub_element);
+            $subElement = $this->createElement($key, $this->normalizeString($value));
+            $element->appendChild($subElement);
         }
         $this->channel->appendChild($element);
         return $this;
@@ -71,8 +71,8 @@ class Feed extends DOMDocument
     {
         $element = $this->createElement($element);
         foreach ($sub as $value) {
-            $sub_element = $this->createElement($child, $this->normalizeString($value));
-            $element->appendChild($sub_element);
+            $subElement = $this->createElement($child, $this->normalizeString($value));
+            $element->appendChild($subElement);
         }
         $this->channel->appendChild($element);
         return $this;
@@ -127,13 +127,13 @@ class Feed extends DOMDocument
     public function addChannelCategory($value, $domain = null)
     {
         return $domain
-            ? $this->addChannelElement('category', $value, array('domain' => $domain))
+            ? $this->addChannelElement('category', $value, ['domain' => $domain])
             : $this->addChannelElement('category', $value);
     }
 
     public function addChannelGenerator()
     {
-        return $this->addChannelElement('generator', 'RSS Generator ' . self::VERSION);
+        return $this->addChannelElement('generator', 'RSS Generator ' . static::VERSION);
     }
 
     public function addChannelDocs()
@@ -143,13 +143,13 @@ class Feed extends DOMDocument
 
     public function addChannelCloud($domain, $port, $path, $registerProcedure, $protocol)
     {
-        return $this->addChannelElement('cloud', '', array(
+        return $this->addChannelElement('cloud', '', [
             'domain' => $domain,
             'port' => $port,
             'path' => $path,
             'registerProcedure' => $registerProcedure,
             'protocol' => $protocol
-        ));
+        ]);
     }
 
     public function addChannelTtl($value)
@@ -165,14 +165,14 @@ class Feed extends DOMDocument
         if ($height < 1 || $height > 144) {
             throw new Exception('Height of the image must be in the range of 1 to 144 pixels. Current value is ' . $height);
         }
-        return $this->addChannelElementWithSub('image', array(
+        return $this->addChannelElementWithSub('image', [
             'url' => $url,
             'title' => $this->title,
             'link' => $link,
             'width' => $width,
             'height' => $height,
             'description' => $description
-        ));
+        ]);
     }
 
     public function addChannelRating($value)
@@ -182,12 +182,12 @@ class Feed extends DOMDocument
 
     public function addChannelTextInput($title, $description, $name, $link)
     {
-        return $this->addChannelElementWithSub('textInput', array(
+        return $this->addChannelElementWithSub('textInput', [
             'title' => $title,
             'description' => $description,
             'name' => $name,
             'link' => $link
-        ));
+        ]);
     }
 
     public function addChannelSkipHours($value)
@@ -240,7 +240,7 @@ class Feed extends DOMDocument
     public function addItemCategory($value, $domain = null)
     {
         return $domain
-            ? $this->addItemElement('category', $value, array('domain' => $domain))
+            ? $this->addItemElement('category', $value, ['domain' => $domain])
             : $this->addItemElement('category', $value);
     }
 
@@ -251,16 +251,16 @@ class Feed extends DOMDocument
 
     public function addItemEnclosure($url, $length, $type)
     {
-        return $this->addItemElement('enclosure', '', array(
+        return $this->addItemElement('enclosure', '', [
             'url' => $url,
             'length' => $length,
             'type' => $type
-        ));
+        ]);
     }
 
     public function addItemGuid($value, $isPermaLink = true)
     {
-        return $this->addItemElement('guid', $value, array('isPermaLink' => $isPermaLink === false ? 'false' : 'true'));
+        return $this->addItemElement('guid', $value, ['isPermaLink' => $isPermaLink === false ? 'false' : 'true']);
     }
 
     public function addItemPubDate($value)
@@ -270,7 +270,7 @@ class Feed extends DOMDocument
 
     public function addItemSource($value, $url)
     {
-        return $this->addItemElement('source', $value, array('url' => $url));
+        return $this->addItemElement('source', $value, ['url' => $url]);
     }
 
     public function __toString()

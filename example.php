@@ -55,6 +55,7 @@ $feed
     ->addItemSource('RSS title', 'http://example.com/rss.xml');
 
 $feed->addItemElement('test', 'desc', array('attr1' => 'val1', 'attr2' => 'val2'));
+$feed->addItemElementSub('group', [ 'var1' => ['key1' => 'value1' ], 'var2' => ['key2' => 'value2' ]]);
 
 echo $feed;
 // $feed->save(realpath(__DIR__ . '/rss.xml'));

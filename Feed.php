@@ -216,6 +216,24 @@ class Feed extends DOMDocument
         $this->item->appendChild($element);
         return $this;
     }
+    
+    public function addItemElementSub($element, $sub)
+    {
+        $element = $this->createElement($element);
+        foreach ($sub as $key => $value) {
+            if (is_array($value)) {
+                $subElement = $this->createElement($key);
+                foreach ($value as $key => $value) {
+                    $subElement->setAttribute($key, $this->normalizeString($value));
+                }
+            } else {
+                $subElement = $this->createElement($key, $this->normalizeString($value));
+            }
+            $element->appendChild($subElement);
+        }
+        $this->item->appendChild($element);
+        return $this;
+    }
 
     public function addItemTitle($value)
     {

@@ -18,14 +18,18 @@ class Feed extends DOMDocument
     /** @var DomElement $item */
     private $item;
 
-    public function __construct()
+    public function __construct($rssAttributes = [], $encoding = 'utf-8')
     {
         parent::__construct();
         $this->formatOutput = true;
-        $this->encoding = 'utf-8';
+        $this->encoding = $encoding;
         $rssElement = $this->createElement('rss');
         $rssElement->setAttribute('version', '2.0');
         $rssElement->setAttribute('xmlns:atom', 'http://www.w3.org/2005/Atom');
+        foreach ($rssAttributes as $rssAttributeName => $rssAttributeValue) {
+            $rssElement->setAttribute($rssAttributeName, $rssAttributeValue);
+        }
+        
         $this->rss = $this->appendChild($rssElement);
     }
 
